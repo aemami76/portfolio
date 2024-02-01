@@ -1,3 +1,5 @@
+import 'dart:html' as html;
+
 import 'package:flutter/material.dart';
 import 'package:portfolio/widgets/about_widget.dart';
 import 'package:portfolio/widgets/contact_url_widget.dart';
@@ -5,7 +7,6 @@ import 'package:portfolio/widgets/projects_widget.dart';
 import 'package:portfolio/widgets/write_text_animation.dart';
 import 'package:simple_icons/simple_icons.dart';
 import 'package:text_divider/text_divider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,13 +21,18 @@ class _HomeScreenState extends State<HomeScreen> {
     int w = MediaQuery.sizeOf(context).width.toInt();
     int h = MediaQuery.sizeOf(context).height.toInt();
 
-    launchURL() async {
-      final url = Uri.parse(cvUrl);
-      if (await canLaunchUrl(url)) {
-        await launchUrl(url);
-      } else {
-        throw 'Could not launch url';
-      }
+    void downloadFile() {
+      const assetPath = 'assets/emamiCV.pdf';
+      final anchor = html.AnchorElement(href: assetPath)
+        ..target = 'blank'
+        ..download = assetPath
+            .split('/')
+            .last; // Provide a custom name for the downloaded file
+
+      // Trigger a click event on the anchor element to start the download
+      html.document.body!.children.add(anchor);
+      anchor.click();
+      html.document.body!.children.remove(anchor);
     }
 
     return SafeArea(
@@ -36,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
           title: const WriteTextAnimation('Amir Mohammad Emami Portfolio!'),
           actions: [
             IconButton(
-                onPressed: launchURL,
+                onPressed: downloadFile,
                 icon: const Icon(Icons.download_for_offline_outlined))
           ],
         ),
@@ -59,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 12,
                         ),
                         OutlinedButton.icon(
-                          onPressed: launchURL,
+                          onPressed: downloadFile,
                           icon: const Icon(Icons.download_for_offline_outlined),
                           label: const Text('Resume'),
                         ),
