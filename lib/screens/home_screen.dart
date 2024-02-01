@@ -55,13 +55,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           radius: w / 8,
                           backgroundImage: const AssetImage('assets/me.jpg'),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 12,
                         ),
                         OutlinedButton.icon(
                           onPressed: launchURL,
-                          icon: Icon(Icons.download_for_offline_outlined),
-                          label: Text('Resume'),
+                          icon: const Icon(Icons.download_for_offline_outlined),
+                          label: const Text('Resume'),
                         ),
                       ],
                     ),
@@ -86,47 +86,84 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding: EdgeInsets.only(top: 8.0, bottom: 8),
                   child: TextDivider(text: Text('Contact Info')),
                 ),
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        ContactUrlWidget(
-                            text: 'github',
-                            icon: SimpleIcons.github,
-                            url: urls[0]),
-                        const Spacer(),
-                        ContactUrlWidget(
-                          text: 'telegram',
-                          icon: SimpleIcons.telegram,
-                          url: urls[3],
-                          ltr: true,
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Row(
-                      children: [
-                        ContactUrlWidget(
-                          text: 'Linkdin',
-                          icon: SimpleIcons.linkedin,
-                          url: urls[1],
-                        ),
-                        const Spacer(),
-                        ContactUrlWidget(
-                          text: 'Email',
-                          icon: SimpleIcons.gmail,
-                          url: urls[2],
-                          ltr: true,
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                  ],
-                ),
+                w > 600
+                    ? Column(
+                        children: [
+                          Row(
+                            children: [
+                              ContactUrlWidget(
+                                  text: 'github',
+                                  icon: SimpleIcons.github,
+                                  url: urls[0]),
+                              const Spacer(),
+                              ContactUrlWidget(
+                                text: 'telegram',
+                                icon: SimpleIcons.telegram,
+                                url: urls[3],
+                                ltr: true,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Row(
+                            children: [
+                              ContactUrlWidget(
+                                text: 'Linkdin',
+                                icon: SimpleIcons.linkedin,
+                                url: urls[1],
+                              ),
+                              const Spacer(),
+                              ContactUrlWidget(
+                                text: 'Email',
+                                icon: SimpleIcons.gmail,
+                                url: urls[2],
+                                ltr: true,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                        ],
+                      )
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          ContactUrlWidget(
+                              text: 'github',
+                              icon: SimpleIcons.github,
+                              url: urls[0]),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          ContactUrlWidget(
+                            text: 'telegram',
+                            icon: SimpleIcons.telegram,
+                            url: urls[3],
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          ContactUrlWidget(
+                            text: 'Linkdin',
+                            icon: SimpleIcons.linkedin,
+                            url: urls[1],
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          ContactUrlWidget(
+                            text: 'Email',
+                            icon: SimpleIcons.gmail,
+                            url: urls[2],
+                          ),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                        ],
+                      ),
                 const Padding(
                   padding: EdgeInsets.only(top: 8.0, bottom: 8),
                   child: TextDivider(text: Text('Projects')),
@@ -158,8 +195,8 @@ const List myProjects = [
   [
     'https://raw.githubusercontent.com/aemami76/projects/main/New%20folder/cv.jpg',
     'Portfolio Website',
-    '',
-    '',
+    'Crafted with Flutter, this portfolio website boasts a responsive UI and clean architecture. Using packages like animated text kit, simple icons, and cached network image, it ensures engaging visuals. With PWA export, the site delivers a seamless, installable experience, all hosted on GitHub for collaborative development.',
+    'https://github.com/aemami76/portfolio',
     ''
   ],
   [
@@ -228,16 +265,16 @@ const List myProjects = [
 ];
 
 const textSpan = TextSpan(
+  style: TextStyle(color: Colors.black),
   children: [
     TextSpan(
         text: 'Amir Mohammad Emami\n\n',
-        style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+        )),
     TextSpan(text: 'Flutter/Dart Developer\n'),
     TextSpan(text: 'Mechanical Engineer at Tehran University\n\n'),
-    TextSpan(
-      text:
-          '  Freelance Dart and Flutter developer, adept in Git and GitHub version control. Experienced in crafting applications leveraging responsive design principles. Proficient in implementing adaptive UI, reactive UI, and reusable widget patterns. Skilled in managing HTTP requests, handling JSON, and integrating RESTful APIs. Well-versed in both GetX and Riverpod libraries.',
-    ),
     TextSpan(
         text: '\n\n1997/12/22 - 27 years old\n',
         style: TextStyle(fontWeight: FontWeight.w600)),
@@ -251,4 +288,5 @@ const List<String> urls = [
   'https://t.me/sir_emami',
 ];
 
-const String cvUrl = '';
+const String cvUrl =
+    'https://github.com/aemami76/files/blob/9274322e0a9c0775d598692c3af012fbc4b4dffd/emamiCV.pdf';

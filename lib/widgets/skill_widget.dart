@@ -8,6 +8,8 @@ class SkillWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double w = MediaQuery.sizeOf(context).width;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -29,16 +31,17 @@ class SkillWidget extends StatelessWidget {
                 child: Card(
                   elevation: 2,
                   child: ListTile(
-                    leading: Column(
-                      children: [
-                        CircleAvatar(
-                          child: ClipOval(
-                              child: Image.asset(
-                            skills[index][0],
-                            fit: BoxFit.fill,
-                          )),
+                    leading: Container(
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          fit: BoxFit.contain,
+                          image: AssetImage(skills[index]
+                              [0]), // Replace with your image asset
                         ),
-                      ],
+                      ),
                     ),
                     title: Row(
                       mainAxisSize: MainAxisSize.max,
@@ -46,41 +49,20 @@ class SkillWidget extends StatelessWidget {
                         Expanded(
                           child: Padding(
                             padding: EdgeInsets.all(
-                                skills[index][2].toString().isEmpty ? 16 : 2),
-                            child: Text(
-                              skills[index][1],
+                                skills[index][2].toString().isEmpty ? 8 : 2),
+                            child: SizedBox(
+                              width: 100,
+                              child: Text(
+                                skills[index][1],
+                              ),
                             ),
                           ),
                         ),
-                        if (skills[index][2].toString().isNotEmpty)
-                          const Spacer(),
-                        if (skills[index][2].toString().isNotEmpty)
-                          skills[index][2].runtimeType == int
-                              ? SliderTheme(
-                                  data: SliderThemeData(
-                                    trackHeight: 15,
 
-                                    disabledActiveTrackColor:
-                                        Theme.of(context).colorScheme.onPrimary,
+                        ///
+                        if (w > 600) ...mobileWidget(skills[index][2], context),
 
-                                    thumbShape: const RoundSliderThumbShape(
-                                        enabledThumbRadius:
-                                            0.0), // Set thumb shape with radius 0
-                                    overlayShape: const RoundSliderOverlayShape(
-                                        overlayRadius:
-                                            20), // Set overlay shape with radius 0
-                                  ),
-                                  child: Slider(
-                                    value: skills[index][2],
-                                    onChanged: null,
-                                    max: 100,
-                                  ),
-                                )
-                              : const SizedBox(),
-                        if (skills[index][2].toString().isNotEmpty)
-                          const SizedBox(
-                            width: 8,
-                          ),
+                        ///
                         if (skills[index][2].toString().isNotEmpty)
                           skills[index][2].runtimeType == int
                               ? Text(
@@ -91,6 +73,9 @@ class SkillWidget extends StatelessWidget {
                                 ),
                       ],
                     ),
+                    subtitle: w <= 600
+                        ? webWidget(skills[index][2], context)
+                        : const SizedBox(),
                   ),
                 ),
               );
@@ -101,4 +86,59 @@ class SkillWidget extends StatelessWidget {
       ],
     );
   }
+}
+
+List<Widget> mobileWidget(dynamic dynamic, BuildContext context) {
+  return [
+    if (dynamic.toString().isNotEmpty) const Spacer(),
+    if (dynamic.toString().isNotEmpty)
+      (dynamic.runtimeType == double) || (dynamic.runtimeType == int)
+          ? SliderTheme(
+              data: SliderThemeData(
+                trackHeight: 15,
+
+                disabledActiveTrackColor:
+                    Theme.of(context).colorScheme.onPrimary,
+
+                thumbShape: const RoundSliderThumbShape(
+                    enabledThumbRadius: 0.0), // Set thumb shape with radius 0
+                overlayShape: const RoundSliderOverlayShape(
+                    overlayRadius: 20), // Set overlay shape with radius 0
+              ),
+              child: Slider(
+                value: (dynamic! as int).toDouble(),
+                onChanged: null,
+                max: 100,
+              ),
+            )
+          : const SizedBox(),
+    if (dynamic.toString().isNotEmpty)
+      const SizedBox(
+        width: 8,
+      ),
+  ];
+}
+
+Widget webWidget(dynamic dynamic, BuildContext context) {
+  if (dynamic.toString().isNotEmpty &&
+      ((dynamic.runtimeType == double) || (dynamic.runtimeType == int))) {
+    return SliderTheme(
+      data: SliderThemeData(
+        trackHeight: 15,
+
+        disabledActiveTrackColor: Theme.of(context).colorScheme.onPrimary,
+
+        thumbShape: const RoundSliderThumbShape(
+            enabledThumbRadius: 0.0), // Set thumb shape with radius 0
+        overlayShape: const RoundSliderOverlayShape(
+            overlayRadius: 20), // Set overlay shape with radius 0
+      ),
+      child: Slider(
+        value: (dynamic! as int).toDouble(),
+        onChanged: null,
+        max: 100,
+      ),
+    );
+  }
+  return const SizedBox();
 }

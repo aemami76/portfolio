@@ -73,7 +73,8 @@ class FirstChild extends StatelessWidget {
     return const Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        SkillWidget(personal, 'Technical Skills'),
+        SkillWidget(personal, 'Soft Skills'),
+        SkillWidget(tech, 'Summery'),
         SkillWidget(skills, 'Skills'),
         SkillWidget(edj, 'Education'),
         SkillWidget(military, 'Military service'),
@@ -83,6 +84,14 @@ class FirstChild extends StatelessWidget {
     );
   }
 }
+
+const List tech = [
+  [
+    'assets/skill.png',
+    '  Freelance Dart and Flutter developer, adept in Git and GitHub version control. Experienced in crafting applications leveraging responsive design principles. Proficient in implementing adaptive UI, reactive UI, and reusable widget patterns. Skilled in managing HTTP requests, handling JSON, and integrating RESTful APIs. Well-versed in both GetX and Riverpod libraries.',
+    '',
+  ]
+];
 
 const List personal = [
   [

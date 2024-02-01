@@ -142,8 +142,10 @@ class _ContactUrlWidgetState extends State<ContactUrlWidget>
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: SizedBox(
-            width: 150,
+            width:
+                MediaQuery.sizeOf(context).width > 600 ? 150 : double.infinity,
             child: Row(
+                mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: !widget.ltr
                     ? MainAxisAlignment.start
