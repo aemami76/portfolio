@@ -22,7 +22,8 @@ class _HomeScreenState extends State<HomeScreen> {
     int h = MediaQuery.sizeOf(context).height.toInt();
 
     void downloadFile() {
-      const assetPath = 'assets/emamiCV.pdf';
+      const assetPath =
+          'https://github.com/aemami76/files/raw/main/emamiCV.pdf';
       final anchor = html.AnchorElement(href: assetPath)
         ..target = 'blank'
         ..download = assetPath
